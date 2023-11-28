@@ -23,7 +23,7 @@ export default function Home() {
         'https://api.github.com/repos/MatheusAltrao/MatheusBlog/issues';
     const userUrl = 'https://api.github.com/users/matheusaltrao';
     const avatar = 'https:github.com/matheusaltrao.png';
-    const [blogContent, setBlogContent] = useState<Issue[]>([]);
+    const [posts, setPosts] = useState<Issue[]>([]);
     const [followers, setFollowers] = useState<number>();
     const [isLoading, setIsLoading] = useState(false);
     const [filterValue, setFilterValue] = useState('');
@@ -35,7 +35,7 @@ export default function Home() {
                 await new Promise((resolve) => setTimeout(resolve, 3000)); // Aumentei para 3 segundos
                 const response = await fetch(blogUrl);
                 const data = await response.json();
-                setBlogContent(data);
+                setPosts(data);
             } catch (error: any) {
                 console.error(`Erro ao acessar as issues: ${error.message}`);
             } finally {
@@ -62,10 +62,10 @@ export default function Home() {
     }, []);
 
     const filteredBlogContent = filterValue
-        ? blogContent.filter((content) =>
+        ? posts.filter((content) =>
               content.title.toLowerCase().includes(filterValue.toLowerCase()),
           )
-        : blogContent;
+        : posts;
 
     return (
         <main className='w-full min-h-screen bg-zinc-950  '>

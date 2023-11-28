@@ -52,7 +52,9 @@ const Card = ({ blog, index }: CardProps) => {
 
     return (
         <Link
-            href={`https://api.github.com/repos/matheusaltrao/MatheusBlog/issues/${index}`}
+            href={`https://api.github.com/repos/matheusaltrao/MatheusBlog/issues/${
+                index + 1
+            }`}
             className='p-8 border w-full border-zinc-800 bg-zinc-900 hover:border-zinc-700 transition-colors overflow-hidden rounded-lg'
         >
             <div className='flex justify-between'>

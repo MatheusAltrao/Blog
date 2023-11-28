@@ -1,8 +1,8 @@
 import { Calendar, ChevronLeft, ExternalLink, GithubIcon } from 'lucide-react';
 import Link from 'next/link';
 
-const Posts = () => {
-    const post =
+const Post = () => {
+    const postURl =
         'https://api.github.com/repos/matheusaltrao/MatheusBlog/issues/1';
 
     return (
@@ -50,7 +50,6 @@ const Posts = () => {
                     </div>
                 </div>
             </header>
-
             <div className='mt-10 px-8'>
                 <p className='text-zinc-300'>
                     Programming languages all have built-in data structures, but
@@ -71,4 +70,4 @@ const Posts = () => {
     );
 };
 
-export default Posts;
+export default Post;
