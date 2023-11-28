@@ -3,10 +3,10 @@ import Link from 'next/link';
 
 interface CardProps {
     blog: any;
-    index: number;
+    postNumber: number;
 }
 
-const Card = ({ blog, index }: CardProps) => {
+const Card = ({ blog, postNumber }: CardProps) => {
     const curentDate = new Date();
 
     const formatedDate = (date: string) => {
@@ -52,9 +52,7 @@ const Card = ({ blog, index }: CardProps) => {
 
     return (
         <Link
-            href={`https://api.github.com/repos/matheusaltrao/MatheusBlog/issues/${
-                index + 1
-            }`}
+            href={`/posts/${postNumber + 1}`}
             className='p-8 border w-full border-zinc-800 bg-zinc-900 hover:border-zinc-700 transition-colors overflow-hidden rounded-lg'
         >
             <div className='flex justify-between'>

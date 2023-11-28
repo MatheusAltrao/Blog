@@ -1,9 +1,35 @@
+'use client';
+
 import { Calendar, ChevronLeft, ExternalLink, GithubIcon } from 'lucide-react';
+import { Issue } from 'next/dist/build/swc';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const Post = () => {
-    const postURl =
+    const postURL =
         'https://api.github.com/repos/matheusaltrao/MatheusBlog/issues/1';
+    const [post, setPost] = useState<Issue>();
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setIsLoading(true);
+                await new Promise((resolve) => setTimeout(resolve, 3000)); // Aumentei para 3 segundos
+                const response = await fetch(postURL);
+                const data = await response.json();
+                setPost(data);
+            } catch (error: any) {
+                console.error(`Erro ao acessar as issues: ${error.message}`);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    console.log(post);
 
     return (
         <div className='max-w-[870px] mx-auto pt-10 px-4 overflow-x-hidden'>
@@ -28,7 +54,7 @@ const Post = () => {
 
                     <div className='flex items-center justify-between'>
                         <h2 className='text-zinc-50 text-2xl font-medium mb-2'>
-                            JavaScript data types and data structures
+                            {post?.title}
                         </h2>
                     </div>
 
@@ -51,20 +77,7 @@ const Post = () => {
                 </div>
             </header>
             <div className='mt-10 px-8'>
-                <p className='text-zinc-300'>
-                    Programming languages all have built-in data structures, but
-                    these often differ from one language to another. This
-                    article attempts to list the built-in data structures
-                    available in JavaScript and what properties they have. These
-                    can be used to build other data structures. Wherever
-                    possible, comparisons with other languages are drawn.
-                    <br />
-                    <br />
-                    Dynamic typing JavaScript is a loosely typed and dynamic
-                    language. Variables in JavaScript are not directly
-                    associated with any particular value type, and any variable
-                    can be assigned (and re-assigned) values of all types:
-                </p>
+                <p className='text-zinc-300'>{post?.body}</p>
             </div>
         </div>
     );
