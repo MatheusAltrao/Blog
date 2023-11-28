@@ -1,12 +1,16 @@
-import { differenceInDays, differenceInHours, format } from 'date-fns';
+import {
+    differenceInDays,
+    differenceInHours,
+    differenceInMinutes,
+    format,
+} from 'date-fns';
 import Link from 'next/link';
 
 interface CardProps {
     blog: any;
-    postNumber: number;
 }
 
-const Card = ({ blog, postNumber }: CardProps) => {
+const Card = ({ blog }: CardProps) => {
     const curentDate = new Date();
 
     const formatedDate = (date: string) => {
@@ -16,6 +20,12 @@ const Card = ({ blog, postNumber }: CardProps) => {
     const difference = (endDate: Date, startDate: string) => {
         const formatedEndDate = new Date(endDate);
         const formatedStartDate = new Date(startDate);
+
+        const resultInMinutes = differenceInMinutes(
+            formatedEndDate,
+            formatedStartDate,
+        );
+
         const resultInHours = differenceInHours(
             formatedEndDate,
             formatedStartDate,
@@ -26,8 +36,12 @@ const Card = ({ blog, postNumber }: CardProps) => {
             formatedStartDate,
         );
 
+        if (resultInHours < 1) {
+            return `${resultInMinutes} min atrás`;
+        }
+
         if (resultInHours <= 24) {
-            return `${resultInHours}h atrás`;
+            return `${resultInHours} h atrás`;
         }
 
         if (resultInHours > 24) {
@@ -52,7 +66,7 @@ const Card = ({ blog, postNumber }: CardProps) => {
 
     return (
         <Link
-            href={`/posts/${postNumber + 1}`}
+            href={`/posts/${blog.number}`}
             className='p-8 border w-full border-zinc-800 bg-zinc-900 hover:border-zinc-700 transition-colors overflow-hidden rounded-lg'
         >
             <div className='flex justify-between'>

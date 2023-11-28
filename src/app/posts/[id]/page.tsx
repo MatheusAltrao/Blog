@@ -1,13 +1,13 @@
 'use client';
 
+import { format } from 'date-fns';
 import { Calendar, ChevronLeft, ExternalLink, GithubIcon } from 'lucide-react';
 import { Issue } from 'next/dist/build/swc';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-const Post = () => {
-    const postURL =
-        'https://api.github.com/repos/matheusaltrao/MatheusBlog/issues/1';
+const Post = ({ params }: any) => {
+    const postURL = `https://api.github.com/repos/matheusaltrao/MatheusBlog/issues/${params.id}`;
     const [post, setPost] = useState<Issue>();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -27,9 +27,11 @@ const Post = () => {
         };
 
         fetchData();
-    }, []);
+    }, [postURL]);
 
-    console.log(post);
+    /*   const formatedDate = (date: string) => {
+        return format(new Date(date), 'dd/MM/yyyy');
+    }; */
 
     return (
         <div className='max-w-[870px] mx-auto pt-10 px-4 overflow-x-hidden'>
@@ -66,7 +68,7 @@ const Post = () => {
 
                         <div className='flex items-center gap-2 '>
                             <Calendar className='text-zinc-400' size={20} />
-                            <p className='text-zinc-200'>matheusaltrao</p>
+                            <p className='text-zinc-200'>{post?.created_at}</p>
                         </div>
 
                         <div className='flex items-center gap-2 '>

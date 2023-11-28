@@ -198,7 +198,7 @@ export default function Home() {
 
                 <div className='mt-10 grid  grid-cols-1 sm:grid-cols-2  gap-4'>
                     {filteredBlogContent.map((blog, index) => (
-                        <Card key={index} blog={blog} postNumber={index} />
+                        <Card key={index} blog={blog} />
                     ))}
                 </div>
 
