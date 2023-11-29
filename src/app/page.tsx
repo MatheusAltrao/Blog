@@ -13,7 +13,7 @@ import Link from 'next/link';
 import Card from './components/Card';
 
 export type Issue = {
-    number?: number;
+    number: number;
     title: string;
     body: string;
     created_at: string;
@@ -23,7 +23,6 @@ export default function Home() {
     const blogUrl =
         'https://api.github.com/repos/MatheusAltrao/MatheusBlog/issues';
     const userUrl = 'https://api.github.com/users/matheusaltrao';
-    const avatar = 'https:github.com/matheusaltrao.png';
     const [posts, setPosts] = useState<Issue[]>([]);
     const [followers, setFollowers] = useState<number>();
     const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +73,7 @@ export default function Home() {
                 <div className='bg-zinc-900 hidden sm:flex rounded-lg p-8   gap-8'>
                     <Image
                         className='object-cover rounded-lg'
-                        src={avatar}
+                        src='https://github.com/MatheusAltrao.png'
                         width={148}
                         height={148}
                         alt='foto do matheus'
@@ -127,7 +126,7 @@ export default function Home() {
                     <div className='flex items-center flex-col gap-4'>
                         <Image
                             className='object-cover rounded-full'
-                            src={avatar}
+                            src='https://github.com/MatheusAltrao.png'
                             width={100}
                             height={100}
                             alt='foto do matheus'
