@@ -5,9 +5,10 @@ import {
     format,
 } from 'date-fns';
 import Link from 'next/link';
+import { Issue } from '../page';
 
 interface CardProps {
-    blog: any;
+    blog: Issue;
 }
 
 const Card = ({ blog }: CardProps) => {
@@ -40,11 +41,11 @@ const Card = ({ blog }: CardProps) => {
             return `${resultInMinutes} min atrás`;
         }
 
-        if (resultInHours <= 24) {
+        if (resultInHours <= 23) {
             return `${resultInHours} h atrás`;
         }
 
-        if (resultInHours > 24) {
+        if (resultInHours > 23) {
             if (resultInDays == 1) {
                 return `${resultInDays} dia atrás`;
             } else {
@@ -61,8 +62,6 @@ const Card = ({ blog }: CardProps) => {
         const desc = text.substring(0, 180);
         return desc;
     };
-
-    //  https://api.github.com/repos/matheusaltrao/MatheusBlog/issues/1
 
     return (
         <Link

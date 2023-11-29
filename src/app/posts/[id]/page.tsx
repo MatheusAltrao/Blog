@@ -1,8 +1,10 @@
 'use client';
 
+import { Issue } from '@/app/page';
 import { format } from 'date-fns';
 import { Calendar, ChevronLeft, ExternalLink, GithubIcon } from 'lucide-react';
-import { Issue } from 'next/dist/build/swc';
+import ReactMarkdown from 'react-markdown';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -29,24 +31,22 @@ const Post = ({ params }: any) => {
         fetchData();
     }, [postURL]);
 
-    /*   const formatedDate = (date: string) => {
-        return format(new Date(date), 'dd/MM/yyyy');
-    }; */
+    console.log(post);
 
     return (
-        <div className='max-w-[870px] mx-auto pt-10 px-4 overflow-x-hidden'>
-            <header className=' bg-zinc-900 hidden sm:flex rounded-lg p-8  gap-8'>
+        <div className='max-w-[870px] mx-auto pt-10 px-4 overflow-x-hidden pb-10'>
+            <header className=' bg-zinc-900 flex rounded-lg p-8  gap-8'>
                 <div className='flex flex-col w-full'>
                     <div className='flex items-center justify-between mb-5'>
                         <Link
                             href='/'
-                            className='text-blue-500  font-medium flex items-center gap-2 hover:underline'
+                            className='text-blue-500 text-sm  font-medium flex items-center gap-2 hover:underline'
                         >
                             <ChevronLeft size={20} /> Voltar
                         </Link>
                         <Link
                             target='_blank'
-                            className='text-blue-500 font-medium flex uppercase items-center gap-2 hover:underline'
+                            className='text-blue-500 text-sm font-medium flex uppercase items-center gap-2 hover:underline'
                             href='https://github.com/MatheusAltrao'
                         >
                             ver no github
@@ -55,12 +55,12 @@ const Post = ({ params }: any) => {
                     </div>
 
                     <div className='flex items-center justify-between'>
-                        <h2 className='text-zinc-50 text-2xl font-medium mb-2'>
+                        <h2 className='text-zinc-50 text-2xl font-medium mb-4'>
                             {post?.title}
                         </h2>
                     </div>
 
-                    <div className='flex items-center gap-6'>
+                    <div className='flex flex-col sm:flex-row items-start sm:items-center sm:gap-4 gap-2'>
                         <div className='flex items-center gap-2 '>
                             <GithubIcon className='text-zinc-400' size={20} />
                             <p className='text-zinc-200'>matheusaltrao</p>
@@ -68,19 +68,14 @@ const Post = ({ params }: any) => {
 
                         <div className='flex items-center gap-2 '>
                             <Calendar className='text-zinc-400' size={20} />
-                            <p className='text-zinc-200'>{post?.created_at}</p>
-                        </div>
-
-                        <div className='flex items-center gap-2 '>
-                            <GithubIcon className='text-zinc-400' size={20} />
-                            <p className='text-zinc-200'>matheusaltrao</p>
+                            <p className='text-zinc-200'> arrumar data</p>
                         </div>
                     </div>
                 </div>
             </header>
-            <div className='mt-10 px-8'>
-                <p className='text-zinc-300'>{post?.body}</p>
-            </div>
+            <article className='mt-10 px-8 prose prose-h1:text-zinc-50 prose-h2:text-zinc-200 prose-h3:text-zinc-200 prose-a:text-blue-500 text-zinc-300 mx-auto w-full'>
+                <ReactMarkdown>{post?.body}</ReactMarkdown>
+            </article>
         </div>
     );
 };

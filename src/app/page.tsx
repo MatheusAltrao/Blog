@@ -12,7 +12,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Card from './components/Card';
 
-type Issue = {
+export type Issue = {
+    number?: number;
     title: string;
     body: string;
     created_at: string;
@@ -87,7 +88,7 @@ export default function Home() {
 
                             <Link
                                 target='_blank'
-                                className='text-blue-500 font-medium flex uppercase items-center gap-2 hover:underline'
+                                className='text-blue-500 text-sm font-medium flex uppercase items-center gap-2 hover:underline'
                                 href='https://github.com/MatheusAltrao'
                             >
                                 GITHUB
