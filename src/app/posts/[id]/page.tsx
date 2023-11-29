@@ -17,7 +17,6 @@ const Post = ({ params }: any) => {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
-                await new Promise((resolve) => setTimeout(resolve, 3000)); // Aumentei para 3 segundos
                 const response = await fetch(postURL);
                 const data = await response.json();
                 setPost(data);
