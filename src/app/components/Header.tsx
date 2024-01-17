@@ -10,7 +10,12 @@ const Header = () => {
     return (
         <header className='flex items-center justify-between py-4 w-full border-b border-zinc-900  '>
             <div className='flex items-center gap-2'>
-                <Image width={40} height={40} src='/favicon.ico' alt='' />
+                <Image
+                    width={40}
+                    height={40}
+                    src='/logo.png'
+                    alt='MatheusBlog'
+                />
             </div>
 
             {status === 'authenticated' && (
