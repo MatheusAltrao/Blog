@@ -1,3 +1,4 @@
+'use client';
 import {
     differenceInDays,
     differenceInHours,
@@ -6,6 +7,8 @@ import {
 } from 'date-fns';
 import Link from 'next/link';
 import { Issue } from '../page';
+import { signIn, useSession } from 'next-auth/react';
+import { Divide } from 'faunadb';
 
 interface CardProps {
     blog: Issue;
@@ -13,6 +16,7 @@ interface CardProps {
 
 const Card = ({ blog }: CardProps) => {
     const curentDate = new Date();
+    const { data } = useSession();
 
     const formatedDate = (date: string) => {
         return format(new Date(date), 'dd/MM/yyyy');
@@ -59,22 +63,22 @@ const Card = ({ blog }: CardProps) => {
     };
 
     const description = (text: string) => {
-        const desc = text.substring(0, 180);
+        const desc = text.substring(0, 150);
         return desc;
     };
 
-    return (
+    return data ? (
         <Link
+            className='p-8 h-[14.125rem] border w-full border-zinc-800 bg-zinc-900 hover:border-zinc-700 transition-colors overflow-hidden rounded-lg'
             href={`/posts/${blog.number}`}
-            className='p-8 border w-full border-zinc-800 bg-zinc-900 hover:border-zinc-700 transition-colors overflow-hidden rounded-lg'
         >
-            <div className='flex justify-between'>
-                <h2 className='text-zinc-50 text-lg font-medium max-w-[200px] break-words'>
-                    {blog.title}
-                </h2>
-                <p className='text-base text-zinc-400 '>
+            <div className='flex items-start gap-1 flex-col w-full'>
+                <p className=' text-zinc-400 text-sm whitespace-nowrap  '>
                     {difference(curentDate, blog.created_at)}
                 </p>
+                <h2 className='text-zinc-50 text-sm  md:text-lg font-medium '>
+                    {blog.title}
+                </h2>
             </div>
             <div>
                 <p className='max-h-[200px] text-left break-words text-base text-zinc-400 mt-5'>
@@ -82,6 +86,25 @@ const Card = ({ blog }: CardProps) => {
                 </p>
             </div>
         </Link>
+    ) : (
+        <button
+            onClick={() => signIn('google')}
+            className='p-8 h-[14.125rem] border flex items-start flex-col w-full border-zinc-800 bg-zinc-900 hover:border-zinc-700 transition-colors overflow-hidden rounded-lg'
+        >
+            <div className='flex items-start gap-1 flex-col w-full'>
+                <p className=' text-zinc-400 text-sm whitespace-nowrap  '>
+                    {difference(curentDate, blog.created_at)}
+                </p>
+                <h2 className='text-zinc-50 text-sm  md:text-lg font-medium '>
+                    {blog.title}
+                </h2>
+            </div>
+            <div>
+                <p className='max-h-[200px] text-left break-words text-base text-zinc-400 mt-5'>
+                    {description(blog.body)}...
+                </p>
+            </div>
+        </button>
     );
 };
 

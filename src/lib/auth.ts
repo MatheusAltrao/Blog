@@ -1,50 +1,40 @@
-import GoogleProvider from 'next-auth/providers/google';
+import { collection, query, where, getDocs, addDoc } from 'firebase/firestore';
 import { AuthOptions } from 'next-auth';
-import { query as q } from 'faunadb';
-import { fauna } from '../services/fauna';
+import GoogleProvider from 'next-auth/providers/google';
+import { db } from '@/service/firebase';
 
 export const authOptions: AuthOptions = {
     providers: [
         GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID ?? '',
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }),
     ],
 
     callbacks: {
-        async signIn({ user, account, profile }) {
+        async signIn({ user }) {
             const { email } = user;
             const { name } = user;
 
-            try {
-                await fauna.query(
-                    q.If(
-                        q.Not(
-                            q.Exists(
-                                q.Match(
-                                    q.Index('user_by_email'),
-                                    q.Casefold(user.email),
-                                ),
-                            ),
-                        ),
+            const userRef = collection(db, 'users');
+            const qUsers = query(userRef, where('email', '==', email));
+            const querySnapshotUsers = await getDocs(qUsers);
 
-                        q.Create(q.Collection('users'), {
-                            data: { email, name },
-                        }),
-                        q.Get(
-                            q.Match(
-                                q.Index('user_by_email'),
-                                q.Casefold(user.email),
-                            ),
-                        ),
-                    ),
-                );
-
+            if (querySnapshotUsers.docs.length > 0) {
                 return true;
-            } catch (err) {
-                console.log(err);
-                return false;
+            } else {
+                try {
+                    await addDoc(collection(db, 'users'), {
+                        name,
+                        email,
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
+                return true;
             }
         },
     },
+
+    secret: process.env.NEXTAUTH_SECRET as string,
 };

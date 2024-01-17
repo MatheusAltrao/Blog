@@ -11,7 +11,11 @@ const poppins = Poppins({
 export const metadata: Metadata = {
     title: 'MatheusBlog',
     icons: {
-        icon: '/favicon.ico',
+        icon: [
+            {
+                url: '/logo.png',
+            },
+        ],
     },
 };
 

@@ -33,7 +33,6 @@ export default function Home() {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
-                await new Promise((resolve) => setTimeout(resolve, 3000)); // Aumentei para 3 segundos
                 const response = await fetch(blogUrl);
                 const data = await response.json();
                 setPosts(data);
@@ -133,7 +132,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className=' sm:hidden bg-zinc-900 flex flex-col items-center justify-center rounded-lg   gap-8'>
+                    <div className=' sm:hidden bg-zinc-900 flex flex-col items-center justify-center rounded-lg p-8   gap-8'>
                         <div className='flex items-center flex-col gap-4'>
                             <Image
                                 className='object-cover rounded-full'
@@ -213,7 +212,7 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className='mt-10 grid  grid-cols-1 sm:grid-cols-2  gap-4'>
+                    <div className='mt-10 grid pb-8  grid-cols-1 sm:grid-cols-2  gap-4'>
                         {filteredBlogContent.map((blog, index) => (
                             <Card key={index} blog={blog} />
                         ))}
