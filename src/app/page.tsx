@@ -83,7 +83,7 @@ export default function Home() {
                         <div className='flex flex-col'>
                             <div className='flex items-center justify-between'>
                                 <h2 className='text-zinc-50 text-2xl font-medium mb-2'>
-                                    Matheus
+                                    Matheus Altrão
                                 </h2>
 
                                 <Link
