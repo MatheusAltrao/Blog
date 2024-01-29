@@ -49,7 +49,7 @@ const Card = ({ blog }: CardProps) => {
             return `${resultInHours} h atrás`;
         }
 
-        if (resultInHours > 23) {
+        if (resultInHours > 23 && resultInDays < 30) {
             if (resultInDays == 1) {
                 return `${resultInDays} dia atrás`;
             } else {
@@ -58,12 +58,12 @@ const Card = ({ blog }: CardProps) => {
         }
 
         if (resultInDays > 30) {
-            formatedDate(startDate);
+            return formatedDate(startDate);
         }
     };
 
     const description = (text: string) => {
-        const desc = text.substring(0, 150);
+        const desc = text.substring(0, 100);
         return desc;
     };
 
@@ -73,10 +73,10 @@ const Card = ({ blog }: CardProps) => {
             href={`/posts/${blog.number}`}
         >
             <div className='flex items-start gap-1 flex-col w-full'>
-                <p className=' text-zinc-400 text-sm whitespace-nowrap  '>
+                <p className=' text-zinc-400 text-sm whitespace-nowrap   '>
                     {difference(curentDate, blog.created_at)}
                 </p>
-                <h2 className='text-zinc-50 text-sm  md:text-lg font-medium '>
+                <h2 className='text-zinc-50 text-sm  text-left md:text-lg font-medium '>
                     {blog.title}
                 </h2>
             </div>
