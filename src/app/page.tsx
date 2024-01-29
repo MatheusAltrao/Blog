@@ -21,8 +21,7 @@ export type Issue = {
 };
 
 export default function Home() {
-    const blogUrl =
-        'https://api.github.com/repos/MatheusAltrao/MatheusBlog/issues';
+    const blogUrl = 'https://api.github.com/repos/MatheusAltrao/blog/issues';
     const userUrl = 'https://api.github.com/users/matheusaltrao';
     const [posts, setPosts] = useState<Issue[]>([]);
     const [followers, setFollowers] = useState<number>();
