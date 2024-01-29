@@ -72,7 +72,7 @@ const Card = ({ blog }: CardProps) => {
             className='p-8 h-[14.125rem] border w-full border-zinc-800 bg-zinc-900 hover:border-zinc-700 transition-colors overflow-hidden rounded-lg'
             href={`/posts/${blog.number}`}
         >
-            <div className='flex items-start gap-1 flex-col w-full'>
+            <div className='space-y-1 text-left'>
                 <p className=' text-zinc-400 text-sm whitespace-nowrap   '>
                     {difference(curentDate, blog.created_at)}
                 </p>
