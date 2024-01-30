@@ -95,7 +95,7 @@ const Card = ({ blog }: CardProps) => {
                 <p className=' text-zinc-400 text-sm whitespace-nowrap  '>
                     {difference(curentDate, blog.created_at)}
                 </p>
-                <h2 className='text-zinc-50 text-sm  md:text-lg font-medium '>
+                <h2 className='text-zinc-50 text-sm text-left md:text-lg font-medium '>
                     {blog.title}
                 </h2>
             </div>
